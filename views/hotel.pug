@@ -1,0 +1,42 @@
+
+
+link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
+link(rel='stylesheet' href='styles.css')
+
+doctype html
+
+nav
+    .nav-wrapper
+        a.brand-logo(href='#') Logo
+        ul#nav-mobile.right.hide-on-med-and-down
+            li
+                a(href='register') Register
+            li
+                a(href='badges.html') Log In
+
+
+
+//.hotel-showcase
+    //- Loop through the list of hotels and create a section for each
+//-
+    each hotel in hotels
+        .hotel
+            //- Add the hotel name and description
+            h1= hotel.name
+            p= hotel.description
+
+            //- Add the hotel image
+            img(src=hotel.imageUrl alt=hotel.name)
+
+            //- Add the hotel rating
+            .rating
+                //- Loop through the number of stars and create a star for each
+                each star in hotel.stars
+                    i.fa.fa-star
+
+            //- Add the hotel amenities
+            .amenities
+                h3 Amenities
+                ul
+                    each amenity in hotel.amenities
+                        li= amenity

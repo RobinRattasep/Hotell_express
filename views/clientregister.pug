@@ -1,0 +1,31 @@
+link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
+link(rel='stylesheet' href='styles.css')
+
+doctype html
+
+nav
+    .nav-wrapper
+        a.brand-logo(href='/') Logo
+        ul#nav-mobile.right.hide-on-med-and-down
+            li
+                a(href='badges.html') Log In
+
+
+
+
+html
+    head
+    body
+        form.registerform(action='/registering', method='POST')
+            p
+                |
+                input(name='eesnimi', value='', type='text', placeholder='Eesnimi')
+                |
+                input(name='perenimi', value='', type='text', placeholder='Perenimi')
+                |
+                input(name='isikukood', value='', type='text', placeholder='Isikukood')
+                |
+                input(name='password', value='', type='password', placeholder='Password')
+                |
+                input(name='email', value='', type='text', placeholder='e-mail')
+            input(value='Submit', type='submit', class="submit")
