@@ -13,16 +13,9 @@ app.use(bodyParser.json());
 
 
 
-
-app.get('/styles.css', (req, res) => {
-    res.type('text/css')
-    res.sendFile('styles.css', { root: __dirname })
-})
-
 app.get('/', async (req, res) => {
     try {
         const hotell = await sequelize.query('SELECT * FROM hotell', { type: sequelize.QueryTypes.SELECT });
-        console.log(hotell)
         res.render('index', {hotell});
 
     } catch (error) {
@@ -36,6 +29,10 @@ app.get('/register', (req, res) => {
         res.render('register');
 });
 
+app.get('/test', (req, res) => {
+    res.render('test');
+});
+
 app.get('/clientregister', (req, res) => {
     res.render('clientregister');
 });
@@ -44,8 +41,9 @@ app.get('/clientregister', (req, res) => {
 
 app.get('/hotel/:id', async (req, res) => {
     try {
-        const andmed = await sequelize.query('SELECT * FROM hotell', { type: sequelize.QueryTypes.SELECT });
-        res.render('hotel', {andmed});
+        const andmed = await sequelize.query('SELECT * FROM hotell where hotell_id = :id', { replacements: {id: req.params.id},type: sequelize.QueryTypes.SELECT });
+        const sendable = andmed[0]
+        res.render('hotel', {sendable});
 
     } catch (error) {
         console.error(error);
@@ -53,9 +51,14 @@ app.get('/hotel/:id', async (req, res) => {
     }
 });
 
-app.post('/registering', (req, res) => {
-    console.log("Tere")
-    console.log(req.body)
+app.post('/registering', async (req, res) => {
+    try {
+        const andmed = await sequelize.query('INSERT * INTO *', { type: sequelize.QueryTypes.INSERT });
+        res.status(200).send('Successfuly registered')
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while trying to register' });
+    }
 });
 
 
