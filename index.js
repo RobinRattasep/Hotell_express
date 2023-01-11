@@ -5,12 +5,11 @@ const pug = require('pug');
 app.set('view engine', 'pug');
 app.use(express.static('public'))
 const bodyParser = require('body-parser')
-
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
-
 
 
 app.get('/', async (req, res) => {
@@ -41,7 +40,7 @@ app.get('/clientregister', (req, res) => {
 
 app.get('/hotel/:id', async (req, res) => {
     try {
-        const andmed = await sequelize.query('SELECT * FROM hotell where hotell_id = :id', { replacements: {id: req.params.id},type: sequelize.QueryTypes.SELECT });
+        const andmed = await sequelize.query('SELECT * FROM hotelli_andmed where hotelli_id_fk = :id', { replacements: {id: req.params.id},type: sequelize.QueryTypes.SELECT });
         const sendable = andmed[0]
         res.render('hotel', {sendable});
 
@@ -52,8 +51,19 @@ app.get('/hotel/:id', async (req, res) => {
 });
 
 app.post('/registering', async (req, res) => {
+    var eesnimi = req.body.eesnimi;
+    var perenimi = req.body.perenimi;
+    var email = req.body.email;
+    var password = req.body.password;
+    var isikukood = req.body.isikukood;
+    console.log(eesnimi)
+    console.log(perenimi)
+    console.log(email)
+    console.log(password)
+    console.log(isikukood)
+    console.log('INSERT INTO omanikud (eesnimi, perenimi, email, password, isikukood) VALUES (?,?,?,?,?)', [eesnimi, perenimi, email, password, isikukood])
     try {
-        const andmed = await sequelize.query('INSERT * INTO *', { type: sequelize.QueryTypes.INSERT });
+        await sequelize.query('INSERT INTO omanikud (perenimi, eesnimi, email, password, isikukood) VALUES (:perenimi, :eesnimi, :email, :password, :isikukood)', {replacements: {eesnimi: req.body.eesnimi, perenimi: req.body.perenimi, email: req.body.email, password: req.body.password, isikukood: req.body.isikukood}, type: sequelize.QueryTypes.INSERT });
         res.status(200).send('Successfuly registered')
     } catch (error) {
         console.error(error);
