@@ -29,8 +29,8 @@ app.get('/register', (req, res) => {
         res.render('register');
 });
 
-app.get('/test', (req, res) => {
-    res.render('test');
+app.get('/faq', (req, res) => {
+    res.render('faq');
 });
 
 app.get('/clientregister', (req, res) => {
