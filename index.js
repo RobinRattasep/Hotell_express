@@ -23,6 +23,39 @@ app.get('/', async (req, res) => {
     }
 });
 
+app.post('reserveRoom', async (req, res) => {
+    // insert reservation into reserved table by room type and hotel id
+    var hotel_id = req.body.hotel_id
+    var roomtype = req.body.roomtype
+    var begin = req.body.begindate
+    var end = req.body.enddate
+    // todo
+    try {
+        const andmed = await sequelize.query("INSERT INTO reservations a VALUES (SELECT)", { replacements: {hotel_id: hotel_id, end: end, begin: begin, roomtype: roomtype},type: sequelize.QueryTypes.SELECT });
+        res.send(andmed);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while trying query'});
+    }
+});
+
+// returns all avilable room types by hotel id, begindate and enddate
+app.post('/getAvailableRooms', async (req, res) => {
+    var hotel_id = req.body.hotel_id
+    var begin = req.body.begindate
+    var end = req.body.enddate
+
+    try {
+        const andmed = await sequelize.query("SELECT DISTINCT r.type FROM rooms r WHERE r.hotell_id = :hotel_id AND NOT EXISTS (SELECT 1 FROM reservations b WHERE b.room_id = r.room_id AND ((:begin >= b.begindate AND :begin < b.enddate) OR (:end > b.begindate AND :end <= b.enddate) OR (:begin <= b.begindate AND :end >= b.enddate)))", { replacements: {hotel_id: hotel_id, end: end, begin: begin},type: sequelize.QueryTypes.SELECT });
+        res.send(andmed);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while trying query'});
+    }
+
+});
 
 app.get('/register', (req, res) => {
         res.render('register');
