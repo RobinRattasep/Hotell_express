@@ -6,6 +6,7 @@ address VARCHAR(2500) NOT NULL);
 
 CREATE TABLE rooms(
 	room_id INT PRIMARY KEY AUTO_INCREMENT,
+    roomnum VARCHAR(250) NOT NULL,
 	hotell_id INT NOT NULL,
 	FOREIGN KEY (hotell_id) REFERENCES hotell(hotell_id),
 	type VARCHAR(255),
@@ -40,3 +41,7 @@ insert into hotelli_andmed (andmete_id, hotelli_id_fk, stars, address, teenused)
 insert into hotelli_andmed (andmete_id, hotelli_id_fk, stars, address, teenused) values (8, 8, 4, 'Apt 674', 'Massage');
 insert into hotelli_andmed (andmete_id, hotelli_id_fk, stars, address, teenused) values (9, 9, 5, '4th Floor', 'Massage');
 insert into hotelli_andmed (andmete_id, hotelli_id_fk, stars, address, teenused) values (10, 10, 1, 'PO Box 95614', 'Massage');
+
+INSERT INTO rooms(hotell_id, type, amenities) VALUES (1,'Suite','sauna');
+
+INSERT INTO reservations(room_id, begindate,enddate,comments) VALUES (1,'2023-01-13 10:00:00','2023-01-14 12:00:00','Do not disturb');
