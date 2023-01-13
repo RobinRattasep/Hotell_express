@@ -4,8 +4,22 @@ image VARCHAR(2500) DEFAULT "https://img.freepik.com/premium-vector/flat-hotel-b
 description VARCHAR(2500) NOT NULL,
 address VARCHAR(2500) NOT NULL);
 
+CREATE TABLE rooms(
+	room_id INT PRIMARY KEY AUTO_INCREMENT,
+	hotell_id INT NOT NULL,
+	FOREIGN KEY (hotell_id) REFERENCES hotell(hotell_id),
+	type VARCHAR(255),
+	amenities SET('wifi','sauna','tv')
+);
 
-
+CREATE TABLE reservations(
+    reserve_id INT PRIMARY KEY AUTO_INCREMENT,
+    room_id INT NOT NULL,
+    FOREIGN KEY (room_id) REFERENCES rooms(room_id),
+    begindate DATETIME NOT NULL,
+    enddate DATETIME NOT NULL,
+    comments VARCHAR(2500)
+);
 
 CREATE TABLE hotelli_andmed(
     andmete_id INT(6) PRIMARY KEY,
