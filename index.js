@@ -63,14 +63,27 @@ app.post('/registering', async (req, res) => {
     console.log(isikukood)
     console.log('INSERT INTO omanikud (eesnimi, perenimi, email, password, isikukood) VALUES (?,?,?,?,?)', [eesnimi, perenimi, email, password, isikukood])
     try {
-        await sequelize.query('INSERT INTO omanikud (perenimi, eesnimi, email, password, isikukood) VALUES (:perenimi, :eesnimi, :email, :password, :isikukood)', {replacements: {eesnimi: req.body.eesnimi, perenimi: req.body.perenimi, email: req.body.email, password: req.body.password, isikukood: req.body.isikukood}, type: sequelize.QueryTypes.INSERT });
-        res.status(200).send('Successfuly registered')
+        await sequelize.query('INSERT INTO omanikud (perenimi, eesnimi, email, password, isikukood) VALUES (:perenimi, :eesnimi, :email, :password, :isikukood)',
+            {replacements: {eesnimi: req.body.eesnimi, perenimi: req.body.perenimi, email: req.body.email, password: req.body.password, isikukood: req.body.isikukood}, type: sequelize.QueryTypes.INSERT });
+        //res.status(200).send('Successfuly registered')
+        res.render('hotel-register');
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while trying to register' });
     }
 });
 
+
+app.post('/reserve', async (req, res) => {
+    try {
+        await sequelize.query('INSERT INTO omanikud (perenimi, eesnimi, email, password, isikukood) VALUES (:perenimi, :eesnimi, :email, :password, :isikukood)',
+            {replacements: {eesnimi: req.body.eesnimi, perenimi: req.body.perenimi, email: req.body.email, password: req.body.password, isikukood: req.body.isikukood}, type: sequelize.QueryTypes.INSERT });
+        res.status(200).send('Successfuly reserved')
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while trying to register' });
+    }
+});
 
 app.listen(3000, () => {
     console.log('Server is listening on port 3000.');

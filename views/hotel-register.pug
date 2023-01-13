@@ -1,0 +1,43 @@
+link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
+link(rel='stylesheet' href='styles.css')
+
+doctype html
+
+nav
+    .nav-wrapper
+        a.brand-logo(href='/') Logo
+        ul#nav-mobile.right.hide-on-med-and-down
+            li
+                a(href='#') Log In
+
+
+
+
+html
+    head
+    body
+        form.registerform(action='/registering', method='POST')
+            p
+                |
+                input(name='hotelname', value='', type='text', placeholder='Hotell name')
+                |
+                input(name='hotel-address', value='', type='text', placeholder='Address')
+                |
+                input(name='password', value='', type='password', placeholder='Password')
+                |
+                input(name='email', value='', type='text', placeholder='e-mail')
+                select#dropdown-menu
+                    option(value='empty', disabled) Select how many Stars you have
+                    option(value='star1') 1 Star
+                    option(value='star2') 2 Stars
+                    option(value='star3') 3 Stars
+                    option(value='star4') 4 Stars
+                    option(value='star5') 5 Stars
+            input(value='Submit', type='submit', class="submit")
+
+
+script.
+    document.getElementById('dropdown-menu').onchange = function() {
+        var selectedValue = this.value;
+        console.log(selectedValue)
+    }

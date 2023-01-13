@@ -63,7 +63,42 @@ body
         button.close(type='button' data-dismiss='modal' aria-label='Close')
           span(aria-hidden='true') &times;
       .modal-body
-        | ...
+        form.registerform(action='/reserve', method='POST', name='reserve-form', id='reserve-form')
+          p
+            |
+            input(name='fname', value='', type='text', placeholder='Firstname')
+            |
+            input(name='lname', value='', type='text', placeholder='Lastname')
+            |
+            input(name='password', value='', type='password', placeholder='Password')
+            |
+            input(name='email', value='', type='text', placeholder='e-mail')
+            label(for='date') Choose a date:
+              input(type='date', id='date', name='date')
+            label(for='number') Persons amount:
+              input(type='number', id='number', name='number', value='1', min='1')
+
+            button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+            button.btn.btn-primary(type='submit') Reserve hotel
       .modal-footer
         button.btn.btn-secondary(type='button' data-dismiss='modal') Close
-        button.btn.btn-primary(type='button') Reserve hotel
+        button.btn.btn-primary(type='submit', id='reserve-submit', name='reserve-submit') Reserve
+
+
+
+
+
+
+
+
+script.
+  document.getElementById("add-number").addEventListener("click", function () {
+    var numberInput = document.getElementById("number");
+    numberInput.value = parseInt(numberInput.value) + 1;
+  });
+
+  document.getElementById("minus-number").addEventListener("click", function () {
+    var numberInput = document.getElementById("number");
+    numberInput.value = parseInt(numberInput.value) - 1;
+  });
+
