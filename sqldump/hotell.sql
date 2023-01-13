@@ -9,7 +9,7 @@ CREATE TABLE rooms(
     roomnum VARCHAR(250) NOT NULL,
 	hotell_id INT NOT NULL,
 	FOREIGN KEY (hotell_id) REFERENCES hotell(hotell_id),
-	type VARCHAR(255),
+	t       ),
 	amenities SET('wifi','sauna','tv')
 );
 
@@ -43,5 +43,7 @@ insert into hotelli_andmed (andmete_id, hotelli_id_fk, stars, address, teenused)
 insert into hotelli_andmed (andmete_id, hotelli_id_fk, stars, address, teenused) values (10, 10, 1, 'PO Box 95614', 'Massage');
 
 INSERT INTO rooms(hotell_id, type, amenities) VALUES (1,'Suite','sauna');
+INSERT INTO rooms(hotell_id, type, amenities, roomnum) VALUES (1,'Double','wifi', 'A350');
 
 INSERT INTO reservations(room_id, begindate,enddate,comments) VALUES (1,'2023-01-13 10:00:00','2023-01-14 12:00:00','Do not disturb');
+INSERT INTO reservations(room_id, begindate,enddate,comments) VALUES (2,'2023-01-15 10:00:00','2023-01-16 12:00:00','Do not disturb');
