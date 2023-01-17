@@ -50,17 +50,18 @@ html
         style 
             include ../styles.css
     body
-        .row.row-cols-3.g-3
-            each indhotell in hotell
-                .col
-                    .card
-                        //img.card-image-top.img-size(src=indhotell.image)
-                        .card-body
+        .container
+            .row.row-cols-5.g-3
+                each indhotell in hotell
+                    .col
+                        .card
+                            img.card-image-top.img-size(src=indhotell.image)
+                            .card-body
 
-                            h5.card-title=indhotell.address
-                            p.card-text=indhotell.description
-                            .card-link
-                                a(href='hotel/'+indhotell.hotell_id) This is a link
+                                h5.card-title=indhotell.address
+                                p.card-text=indhotell.description
+                                .card-link
+                                    a(href='hotel/'+indhotell.hotell_id) This is a link
             
 
 
