@@ -3,7 +3,6 @@ const app = express();
 const sequelize = require('./database');
 const pug = require('pug');
 app.set('view engine', 'pug');
-app.use(express.static('public'))
 const bodyParser = require('body-parser')
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
@@ -49,7 +48,7 @@ app.post('/getAvailableRooms', async (req, res) => {
     try {
         const andmed = await sequelize.query("SELECT DISTINCT r.type FROM rooms r WHERE r.hotell_id = :hotel_id AND NOT EXISTS (SELECT 1 FROM reservations b WHERE b.room_id = r.room_id AND ((:begin >= b.begindate AND :begin < b.enddate) OR (:end > b.begindate AND :end <= b.enddate) OR (:begin <= b.begindate AND :end >= b.enddate)))", { replacements: {hotel_id: hotel_id, end: end, begin: begin},type: sequelize.QueryTypes.SELECT });
         res.send(andmed);
-
+        res.redirect(`/hotel/${hotel_id}`);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while trying query'});
@@ -106,6 +105,9 @@ app.post('/registering', async (req, res) => {
     }
 });
 
+app.post('/search', async (req, res) => {
+
+});
 
 app.post('/reserve', async (req, res) => {
     try {
