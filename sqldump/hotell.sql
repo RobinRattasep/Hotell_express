@@ -8,8 +8,8 @@ CREATE TABLE rooms(
 	room_id INT PRIMARY KEY AUTO_INCREMENT,
     roomnum VARCHAR(250) NOT NULL,
 	hotell_id INT NOT NULL,
-	FOREIGN KEY (hotell_id) REFERENCES hotell(hotell_id),
-	t       ),
+    type VARCHAR(250),
+    FOREIGN KEY (hotell_id) REFERENCES hotell(hotell_id),
 	amenities SET('wifi','sauna','tv')
 );
 
@@ -45,14 +45,14 @@ insert into hotelli_andmed (andmete_id, hotelli_id_fk, stars, address, teenused)
 
 
 CREATE TABLE omanikud (
-    omaniku_id INT(6) PRIMARY KEY,
+    omaniku_id INT(6) PRIMARY KEY AUTO_INCREMENT,
     hotelli_id_fk int(6),
     FOREIGN KEY (hotelli_id_fk) REFERENCES hotell(hotell_id),
     perenimi varchar(255),
     eesnimi varchar(255),
+    email varchar(255) NOT NULL UNIQUE,
     password varchar(255),
-    isikukood int,
-    nimi VARCHAR(255)
+    isikukood int
 );
 
 INSERT INTO rooms(hotell_id, type, amenities) VALUES (1,'Suite','sauna');
