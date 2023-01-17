@@ -76,6 +76,7 @@ app.get('/hotel/:id', async (req, res) => {
         const andmed = await sequelize.query('SELECT * FROM hotelli_andmed where hotelli_id_fk = :id', { replacements: {id: req.params.id},type: sequelize.QueryTypes.SELECT });
         const sendable = andmed[0]
         res.render('hotel', {sendable});
+        
 
     } catch (error) {
         console.error(error);
