@@ -68,26 +68,29 @@ html
 
 
 script.
-    function showPopup() {
-        //- Use the window.prompt() method to create a popup box with a custom layout
-        var response = window.prompt("Please select the options you want:", "", "Option 1,Option 2");
 
-        //- Check the user's response and take action accordingly
-        if (response == "Option 1,Option 2") {
-            //- The user selected both options
-            //- Perform some action, such as redirecting the user to another page
-            window.location = "http://www.example.com";
-        } else if (response == "Option 1") {
-            //- The user selected the first option
-            //- Perform some other action, such as closing the popup window
-            window.close();
-        } else if (response == "Option 2") {
-            //- The user selected the second option
-            //- Perform some other action, such as displaying an error message
-            alert("Invalid response. Please try again.");
-        } else {
-            //- The user did not select any options or selected the cancel button
-            //- Perform some other action, such as closing the popup window
-            window.close();
+
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
     }
