@@ -1,43 +1,13 @@
-
-// listings.pug
-//- link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
-link(rel='stylesheet' href='../styles.css')
-link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous')
-script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous')
-  script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous')
-  script(src='https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous')
+link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
+link(rel='stylesheet' href='/styles.css')
+script(src='./script.js', type='text/javascript')
 
 
 
-
-nav.navbar.navbar-expend-lg.navbar-light.bg-light
-    a.navbar-brand(href='#') Logo
-    
-    ul#nav-mobile.right.hide-on-med-and-down   
-
-    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
-        span.navbar-toggler-icon
-    #navbarSupportedContent.collapse.navbar-collapse
-        ul.navbar-nav.mr-auto
-            li.nav-item.active
-                a.nav-link(href='#')
-                    | Home 
-                    span.sr-only (current)
-            li.nav-item
-                a.nav-link(href='#') Link
-            li.nav-item.dropdown
-                a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                    | Dropdown
-                .dropdown-menu(aria-labelledby='navbarDropdown')
-                    a.dropdown-item(href='#') Action
-                    a.dropdown-item(href='#') Another action
-                    .dropdown-divider
-                    a.dropdown-item(href='#') Something else here
-            li.nav-item
-                a.nav-link.disabled(href='#') Disabled
-        form.form-inline.my-2.my-lg-0
-            input.form-control.mr-sm-2(type='search' placeholder='Search' aria-label='Search')
-            button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search         
+nav
+    .nav-wrapper
+        a.brand-logo(href='#') Logo
+        ul#nav-mobile.right.hide-on-med-and-down
             li
                 a(href='/register') Register
             li
@@ -50,47 +20,26 @@ html
         style 
             include ../public/styles.css
     body
-        .container
-            .row.row-cols-5.g-3
-                each indhotell in hotell
-                    .col
-                        .card
-                            img.card-image-top.img-size(src=indhotell.image)
-                            .card-body
+    each indhotell in hotell
+        .row
+            .col.s12.m7
+                .card
+                    .card-image
+                        img(src=indhotell.image)
+                        span.card-title=indhotell.address
+                    .card-content
+                        p=indhotell.description
+                        .card-action
+                            button(id=indhotell.hotell_id, onclick='showModal(this.id)') Reserve
+                            // The Modal
+                            #myModal.modal1
+                                form
+                                    // Modal content
+                                    .modal-content
+                                        span(class="close", id="close", onclick='hideModal(this.id)') &times;
+                                        label(for='saabumine') Saabumine:
+                                            input(type='date', id='saabumine', name='saabumine')
+                                        label(for='lahkumine') Lahkumine:
+                                            input(type='date', id='lahkumine', name='lahkumine')
+                                        button.btn(type="submit", onclick='senddata()') Submit
 
-                                h5.card-title=indhotell.address
-                                p.card-text=indhotell.description
-                                .card-link
-                                    a(href='hotel/'+indhotell.hotell_id) This is a link
-            
-
-
-
-
-script.
-
-
-    var modal = document.getElementById("myModal");
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal
-    btn.onclick = function () {
-        modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }

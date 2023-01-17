@@ -4,7 +4,6 @@ const sequelize = require('./database');
 const pug = require('pug');
 const jwt = require('jsonwebtoken');
 app.set('view engine', 'pug');
-app.use(express.static('public'))
 const bodyParser = require('body-parser')
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
