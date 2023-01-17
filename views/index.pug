@@ -50,41 +50,18 @@ html
         style 
             include ../styles.css
     body
+        .container
+            .row.row-cols-5.g-3
+                each indhotell in hotell
+                    .col
+                        .card
+                            img.card-image-top.img-size(src=indhotell.image)
+                            .card-body
 
-        .row.row-cols-3.g-3
-            each indhotell in hotell
-                .col
-                    .card
-                        //img.card-image-top.img-size(src=indhotell.image)
-                        .card-body
-
-    each indhotell in hotell
-        .row
-            .col.s12.m7
-                .card
-                    .card-image
-                        img(src=indhotell.image)
-                        span.card-title=indhotell.address
-                    .card-content
-                        p=indhotell.description
-                    .card-action
-                        button#myBtn Reserve
-                        // The Modal
-                        #myModal.modal1
-                            // Modal content
-                            .modal-content
-                                span.close &times;
-                                label(for='saabumine') Saabumine:
-                                    input(type='date', id='saabumine', name='saabumine')
-                                label(for='lahkumine') Lahkumine:
-                                    input(type='date', id='lahkumine', name='lahkumine')
-                                a(href='hotel/'+indhotell.hotell_id) View avalible rooms
-
-
-                            h5.card-title=indhotell.address
-                            p.card-text=indhotell.description
-                            .card-link
-                                a(href='hotel/'+indhotell.hotell_id) This is a link
+                                h5.card-title=indhotell.address
+                                p.card-text=indhotell.description
+                                .card-link
+                                    a(href='hotel/'+indhotell.hotell_id) This is a link
             
 
 
