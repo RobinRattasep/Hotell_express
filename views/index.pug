@@ -1,3 +1,7 @@
+link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
+link(rel='stylesheet' href='/styles.css')
+script(src='./script.js', type='text/javascript')
+
 
 // listings.pug
 // link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
@@ -9,35 +13,10 @@ script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.j
 
 
 
-
-nav.navbar.navbar-expend-lg.navbar-light.bg-light
-    a.navbar-brand(href='#') Logo
-    
-    ul#nav-mobile.right.hide-on-med-and-down   
-
-    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
-        span.navbar-toggler-icon
-    #navbarSupportedContent.collapse.navbar-collapse
-        ul.navbar-nav.mr-auto
-            li.nav-item.active
-                a.nav-link(href='#')
-                    | Home 
-                    span.sr-only (current)
-            li.nav-item
-                a.nav-link(href='#') Link
-            li.nav-item.dropdown
-                a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                    | Dropdown
-                .dropdown-menu(aria-labelledby='navbarDropdown')
-                    a.dropdown-item(href='#') Action
-                    a.dropdown-item(href='#') Another action
-                    .dropdown-divider
-                    a.dropdown-item(href='#') Something else here
-            li.nav-item
-                a.nav-link.disabled(href='#') Disabled
-        form.form-inline.my-2.my-lg-0
-            input.form-control.mr-sm-2(type='search' placeholder='Search' aria-label='Search')
-            button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search         
+nav
+    .nav-wrapper
+        a.brand-logo(href='#') Logo
+        ul#nav-mobile.right.hide-on-med-and-down
             li
                 a(href='/register') Register
             li
@@ -50,6 +29,7 @@ html
         style 
             include ../public/styles.css
     body
+
         .container
             .row
                 each indhotell in hotell
@@ -90,9 +70,4 @@ script.
         modal.style.display = "none";
     }
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+
