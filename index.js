@@ -48,7 +48,9 @@ app.post('/getAvailableRooms', async (req, res) => {
     try {
         const andmed = await sequelize.query("SELECT DISTINCT r.type FROM rooms r WHERE r.hotell_id = :hotel_id AND NOT EXISTS (SELECT 1 FROM reservations b WHERE b.room_id = r.room_id AND ((:begin >= b.begindate AND :begin < b.enddate) OR (:end > b.begindate AND :end <= b.enddate) OR (:begin <= b.begindate AND :end >= b.enddate)))", { replacements: {hotel_id: hotel_id, end: end, begin: begin},type: sequelize.QueryTypes.SELECT });
         res.send(andmed);
-        res.redirect(`/hotel/${hotel_id}`);
+        console.log("Siia jõuan")
+        //res.redirect(`/hotel/${hotel_id}`);
+        console.log("Siia ei jõua")
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while trying query'});
@@ -88,11 +90,6 @@ app.post('/registering', async (req, res) => {
     var email = req.body.email;
     var password = req.body.password;
     var isikukood = req.body.isikukood;
-    console.log(eesnimi)
-    console.log(perenimi)
-    console.log(email)
-    console.log(password)
-    console.log(isikukood)
     console.log('INSERT INTO omanikud (eesnimi, perenimi, email, password, isikukood) VALUES (?,?,?,?,?)', [eesnimi, perenimi, email, password, isikukood])
     try {
         await sequelize.query('INSERT INTO omanikud (perenimi, eesnimi, email, password, isikukood) VALUES (:perenimi, :eesnimi, :email, :password, :isikukood)',
@@ -105,9 +102,26 @@ app.post('/registering', async (req, res) => {
     }
 });
 
-app.post('/search', async (req, res) => {
 
+app.post('/hotelregister', async (req, res) => {
+    var hotelname = req.body.hotelname;
+    var hotel_address = req.body.hotel_address;
+    var stars = req.body.stars;
+
+    console.log(stars)
+    console.log(hotel_address)
+    console.log(hotelname)
+    try {
+        await sequelize.query('INSERT INTO hotell (address, description) VALUES (:address, :description)',
+            {replacements: {address: req.body.hotel_address, description: req.body.description}, type: sequelize.QueryTypes.INSERT });
+        //res.status(200).send('Successfuly registered')
+        res.redirect('/');
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while trying to register' });
+    }
 });
+
 
 app.post('/reserve', async (req, res) => {
     try {
