@@ -1,8 +1,15 @@
+link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
+link(rel='stylesheet' href='/styles.css')
+script(src='./script.js', type='text/javascript')
+
 
 // listings.pug
-link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
-link(rel='stylesheet' href='styles.css')
-
+// link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
+link(rel='stylesheet' href='../styles.css')
+link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous')
+script(src='https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous')
+  script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous')
+  script(src='https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous')
 
 
 
@@ -11,7 +18,7 @@ nav
         a.brand-logo(href='#') Logo
         ul#nav-mobile.right.hide-on-med-and-down
             li
-                a(href='register') Register
+                a(href='/register') Register
             li
                 a.button(onclick="showPopup()") Log In
 
@@ -19,44 +26,48 @@ nav
 doctype html
 html
     head
+        style 
+            include ../public/styles.css
     body
-    each indhotell in hotell
-        .row
-            .col.s12.m7
-                .card
-                    .card-image
-                        img(src=indhotell.image)
-                        span.card-title=indhotell.address
-                    .card-content
-                        p=indhotell.description
-                    .card-action
-                        a(href='hotel/'+indhotell.hotell_id) This is a link
+
+        .container
+            .row
+                each indhotell in hotell
+                    .col-md-4
+                        
+                            .card
+                                img.card-image-top.img-size(src=indhotell.image)
+                                .card-body
+
+                                    h5.card-title=indhotell.address
+                                    
+                                    p.card-text=indhotell.description
+                                    .card-link
+                                        a(href='hotel/'+indhotell.hotell_id) This is a link
 
 
 
 
 
 script.
-    function showPopup() {
-        //- Use the window.prompt() method to create a popup box with a custom layout
-        var response = window.prompt("Please select the options you want:", "", "Option 1,Option 2");
 
-        //- Check the user's response and take action accordingly
-        if (response == "Option 1,Option 2") {
-            //- The user selected both options
-            //- Perform some action, such as redirecting the user to another page
-            window.location = "http://www.example.com";
-        } else if (response == "Option 1") {
-            //- The user selected the first option
-            //- Perform some other action, such as closing the popup window
-            window.close();
-        } else if (response == "Option 2") {
-            //- The user selected the second option
-            //- Perform some other action, such as displaying an error message
-            alert("Invalid response. Please try again.");
-        } else {
-            //- The user did not select any options or selected the cancel button
-            //- Perform some other action, such as closing the popup window
-            window.close();
-        }
+
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
     }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+
